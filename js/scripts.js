@@ -35,6 +35,7 @@ function Contact(firstName, lastName, phoneNumber) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
+  this.address = {};
 };
 
 
@@ -42,9 +43,18 @@ Contact.prototype.fullName = function () {
   return this.firstName + " " + this.lastName;
 };
 
+/// Business Logic for Address 
+function Address(homeAddress, workAddress, email, workEmail) {
+  this.homeAddress = homeAddress;
+  this.workAddress = workAddress;
+  this.email = email;
+  this.workEmail = workEmail;
+}
+
 
 // User Interface Logic ---------
 let addressBook = new AddressBook();
+let address = new Address();
 
 function displayContactDetails(addressBookToDisplay) {
   let contactsList = $("ul#contacts");
