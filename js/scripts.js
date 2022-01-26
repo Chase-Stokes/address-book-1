@@ -43,6 +43,10 @@ Contact.prototype.fullName = function () {
   return this.firstName + " " + this.lastName;
 };
 
+Contact.prototype.submitAddress = function (address) {
+  return this.address = address;
+}
+
 /// Business Logic for Address 
 function Address(homeAddress, workAddress, email, workEmail) {
   this.homeAddress = homeAddress;
@@ -54,7 +58,6 @@ function Address(homeAddress, workAddress, email, workEmail) {
 
 // User Interface Logic ---------
 let addressBook = new AddressBook();
-let address = new Address();
 
 function displayContactDetails(addressBookToDisplay) {
   let contactsList = $("ul#contacts");
@@ -72,6 +75,10 @@ function showContact(contactId) {
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
+  $(".home-addy").html("Home Address: " + contact.address.homeAddress);
+  $(".work-addy").html("Work Address: " + contact.address.workAddress);
+  $(".email-addy").html("Email Address: " +contact.address.email);
+  $(".work-email-addy").html("Work Email Address: " +contact.address.workEmail);
   let buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class ='deleteButton' id=" + contact.id + ">Delete</button>");
@@ -95,13 +102,44 @@ $(document).ready(function() {
     const inputtedFirstName = $("input#new-first-name").val();
     const inputtedLastName = $("input#new-last-name").val();
     const inputtedPhoneNumber = $("input#new-phone-number").val();
+    const inputtedHome = $("input#new-home-address").val();
+    const inputtedWork = $("input#new-work-address").val();
+    const inputtedEmail = $("input#email").val();
+    const inputtedWorkEmail = $("input#new-work-email").val();
+
+
+    // if (inputtedHome === "") {
+    //   $("#1").remove();
+    // } else if ( inputtedWork === "") {
+    //   $("#2").remove()
+    // } else if ( inputtedEmail === "") {
+    //   $("#3").remove()
+    // } else if ( inputtedWorkEmail === "") {
+    //   $("#4").remove()
+    // }
+    
+    // $("#show-contact").children("p").each(function() {
+    //   let myVar = $(this);
+    //   console.log(myVar);   
+    // if ($("input[type='text']" === "")) {
+      
+    //   $("p").remove();
+    //   }
+    // })
 
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
+    $("input#new-home-address").val("");
+    $("input#new-work-address").val("");
+    $("input#email").val("");
+    $("input#new-work-email").val("");
 
+    const address = new Address(inputtedHome, inputtedWork, inputtedEmail, inputtedWorkEmail);
     let newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
     addressBook.addContact(newContact);
+    newContact.submitAddress(address);
+    console.log(newContact);
     displayContactDetails(addressBook);
   });
 });
